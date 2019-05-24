@@ -13,9 +13,9 @@ class Team extends Model
 		'user_id'
 	];
 
-    public function project()
+    public function projects()
 	{
-		return $this->hasOne('App\Team');
+		return $this->hasMany('App\Project');
 	}
 
 	public function user(){

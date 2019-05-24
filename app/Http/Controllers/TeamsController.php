@@ -15,6 +15,9 @@ class TeamsController extends Controller
     public function index()
     {
         //
+        $teams = Team::all();
+
+        return view('teams.index', compact('teams'));
     }
 
     /**
@@ -48,9 +51,13 @@ class TeamsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Team $team)
     {
         //
+        // $team = Team::where('id', $team->id )->first();
+        $team = Team::find($team->id);
+
+        return view('teams.show', compact('team'));
     }
 
     /**
@@ -62,6 +69,9 @@ class TeamsController extends Controller
     public function edit($id)
     {
         //
+        $team = Team::findOrFail($id);
+
+        return view('teams.edit', compact('team'));
     }
 
     /**
@@ -74,6 +84,11 @@ class TeamsController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $team = Team::findOrFail($id);
+
+        $team->update($request->all());
+
+        return redirect()->route('teams.show', [$id]);
     }
 
     /**
@@ -82,8 +97,11 @@ class TeamsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
+    public function destroy($id){  
+        
+        $team = Team::whereId($id)->delete();
+
+        return redirect('/teams');
     }
+
 }

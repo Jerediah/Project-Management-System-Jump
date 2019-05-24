@@ -10,12 +10,13 @@
                 <div class="card-body">
                 	<form method="post" action="/projects/{{$project->id}}">
                 		{{csrf_field()}}
+                        <input type="hidden" name="_method" value="PUT">
                         Project name: <input type="text" name="title" value="{{$project->title}}"><br><br>
                         Project description: <input type="text" name="description" value="{{$project->description}}"><br><br>
                         Select Team: <select id="team_id" name="team_id" class="form-control">
                             <option>-----Select Team-----</option>
-                            @foreach($teams as $team)
-                                <option value="{{$teams->id}}">{{$teams->name}}</option>
+                            @foreach($team as $t)
+                                <option value="{{$t->id}}">{{$t->name}}</option>
                             @endforeach
                         </select>
                         Priority: <input type="text" name="priority" value="{{$project->priority}}"><br><br>

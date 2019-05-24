@@ -20,7 +20,11 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('projects', 'ProjectsController');
-
 Route::resource('teams', 'TeamsController');
+Route::resource('roles', 'RolesController');
+Route::resource('tasks', 'TasksController');
+Route::resource('users', 'UsersController');
+Route::resource('comments', 'CommentsController');
+
 
 Route::get('projects/create/{team_id?}', 'ProjectsController@create');

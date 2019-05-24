@@ -22,7 +22,7 @@ class CreateProjectsTable extends Migration
             $table->date('finish_date');
             $table->unsignedBigInteger('team_id')->nullable()->index();
             $table->unsignedBigInteger('user_id')->nullable()->index();
-            $table->foreign('team_id')->references('id')->on('teams');
+            $table->foreign('team_id')->references('id')->on('teams')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });

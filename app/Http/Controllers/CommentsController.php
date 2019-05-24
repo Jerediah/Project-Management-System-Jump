@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Comment;
 use Illuminate\Http\Request;
-use App\Project;
-use App\Team;
 
-class ProjectsController extends Controller
+class CommentsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +15,6 @@ class ProjectsController extends Controller
     public function index()
     {
         //
-        $projects = Project::all();
-
-        return view('projects.index', compact('projects'));
     }
 
     /**
@@ -29,9 +25,6 @@ class ProjectsController extends Controller
     public function create()
     {
         //
-        $teams = Team::all();
-
-        return view('projects.create', compact('teams'));
     }
 
     /**
@@ -43,18 +36,15 @@ class ProjectsController extends Controller
     public function store(Request $request)
     {
         //
-        Project::create($request->all());
-
-        return redirect('/home');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Comment $comment)
     {
         //
     }
@@ -62,50 +52,34 @@ class ProjectsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Comment $comment)
     {
         //
-        $team = Team::findOrFail($id);
-        $project = Project::findOrFail($id);
-
-        return view('projects.edit', compact('project', 'team'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Comment $comment)
     {
         //
-        $project = Project::findOrFail($id);
-
-        $team = Team::findOrFail($id);
-
-        $project->update($request->all());
-
-        $team->update($request->all());
-
-        return redirect('/home');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Comment $comment)
     {
         //
-        $project = Project::whereId($id)->delete();
-
-        return redirect('/projects');
     }
 }

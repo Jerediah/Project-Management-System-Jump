@@ -53,7 +53,7 @@
                                 <a class="nav-link" href="/projects/create">Create Project</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/teams/create">Team</a>
+                                <a class="nav-link" href="/teams">Team</a>
                             </li class="nav-item">
                             <li>
                                 <a class="nav-link" href="/projects">Project List</a>
