@@ -42,7 +42,7 @@ class TeamsController extends Controller
         //
         Team::create($request->all());
 
-        return redirect('/home');
+        return redirect('/teams');
     }
 
     /**
