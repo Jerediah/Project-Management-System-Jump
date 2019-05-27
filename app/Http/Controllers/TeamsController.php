@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Team;
+use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class TeamsController extends Controller
 {
@@ -18,6 +20,7 @@ class TeamsController extends Controller
         $teams = Team::all();
 
         return view('teams.index', compact('teams'));
+        
     }
 
     /**
@@ -39,10 +42,23 @@ class TeamsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
         Team::create($request->all());
 
         return redirect('/teams');
+        // if (Auth::check()) {
+        //     $team = Team::create([
+        //         'name' => $request->input('name'),
+        //         'user_id' => Auth::user()->id
+        //     ]);
+
+        //     if ($team) {
+        //         return redirect()->route('teams.show', ['team' => $team->id])
+        //         ->with('success', 'Team created successfully');
+        //     }
+        // }
+
+        // return back()->withInput()->with('error','Error creating team');
     }
 
     /**
@@ -103,5 +119,42 @@ class TeamsController extends Controller
 
         return redirect('/teams');
     }
+
+    public function adduser(Request $request){
+
+         
+         $team = Team::all();
+        
+
+         if(Auth::user()->id == $team->user_id){
+
+         $user = User::where('email', $request->input('email'))->first(); //single record
+
+         //check if user is already added to the project
+         $teamUser = TeamUser::where('user_id',$user->id)
+                                    ->where('team_id',$team->id)
+                                    ->first();
+                                    
+            if($teamUser){
+                //if user already exists, exit 
+        
+                return response()->json(['success' ,  $request->input('email').' is already a member of this team']); 
+               
+            }
+
+
+            if($user && $team){
+
+                $team->users()->attach($user->id); 
+
+                     return response()->json(['success' ,  $request->input('email').' was added to the team successfully']); 
+                        
+                    }
+                    
+         }
+
+         return redirect()->route('teams.show', ['team'=> $project->id])
+         ->with('errors' ,  'Error adding user to team');
+     }
 
 }

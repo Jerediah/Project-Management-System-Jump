@@ -50,14 +50,42 @@
                             @endif
                         @else
                             <li class="nav-item">
-                                <a class="nav-link" href="/projects/create">Create Project</a>
+                                <a class="nav-link" href="/tasks">Tasks</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="/teams">Team</a>
                             </li class="nav-item">
                             <li>
-                                <a class="nav-link" href="/projects">Project List</a>
+                                <a class="nav-link" href="/projects">Project</a>
                             </li>
+@if(Auth::user()->role_id == 1)
+
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    Admin <span class="caret"></span>
+                                </a>
+
+                                <ul class="dropdown-menu" role="menu">
+                                    <li class="nav-item">
+                                <a class="nav-link" href="/tasks">All Tasks</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/teams">All Team</a>
+                            </li class="nav-item">
+                            <li>
+                                <a class="nav-link" href="/projects">All Project</a>
+                            </li>
+                            <li>
+                                <a class="nav-link" href="/users">All Users</a>
+                            </li>
+                            <li>
+                                <a class="nav-link" href="/roles">All Roles</a>
+                            </li>
+                                </ul>
+                                
+                            </li>
+
+@endif                            
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
@@ -81,9 +109,16 @@
             </div>
         </nav>
 
-        <main class="py-4">
-            @yield('content')
-        </main>
+        <div class="container">
+            <br>
+            @include('partials.errors')
+            @include('partials.success')
+            <main class="py-4">
+                @yield('content')
+            </main>
+            
+        </div>
+       
     </div>
 </body>
 </html>

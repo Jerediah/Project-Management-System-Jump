@@ -17,11 +17,15 @@ class Project extends Model
     	'user_id'
     ];
 
-    public function user(){
+    public function users(){
         return $this->belongsToMany('App\User');
     }
 
     public function team(){
         return $this->belongsTo('App\Team');
+    }
+
+    public function comments(){
+        return $this->morphMany('App\Comment', 'commentable');
     }
 }

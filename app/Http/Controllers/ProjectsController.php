@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Project;
+use App\ProjectUser;
 use App\Team;
+use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectsController extends Controller
 {
@@ -26,12 +29,12 @@ class ProjectsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($team_id = null)
     {
         //
         $teams = Team::all();
 
-        return view('projects.create', compact('teams'));
+        return view('projects.create', ['project_id'=>$team_id], compact('teams'));
     }
 
     /**
@@ -54,9 +57,13 @@ class ProjectsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Project $project)
     {
         //
+        // $team = Team::where('id', $team->id )->first();
+        $project = Project::find($project->id);
+
+        return view('projects.show', compact('project'));
     }
 
     /**
@@ -68,10 +75,10 @@ class ProjectsController extends Controller
     public function edit($id)
     {
         //
-        $team = Team::findOrFail($id);
+        $teams = Team::all();
         $project = Project::findOrFail($id);
 
-        return view('projects.edit', compact('project', 'team'));
+        return view('projects.edit', compact('project', 'teams'));
     }
 
     /**
@@ -108,4 +115,46 @@ class ProjectsController extends Controller
 
         return redirect('/projects');
     }
+
+    public function adduser(Request $request){
+         //add user to projects 
+
+         //take a project, add a user to it
+         $project = Project::find($request->input('id'));
+
+        
+
+         if(Auth::user()->id == $project->id){
+
+         $user = User::where('email', $request->input('email'))->first(); //single record
+
+         //check if user is already added to the project
+         // $projectUser = ProjectUser::where('user_id',$user->id)
+         //                            ->where('project_id',$project->id)
+         //                            ->first();
+                                    
+         //    if($projectUser){
+         //        //if user already exists, exit 
+        
+         //        return response()->json(['success' ,  $request->input('email').' is already a member of this project']); 
+               
+         //    }
+
+
+            if($user && $project){
+
+                $project->users()->attach($user->id); 
+
+                     return response()->json(['success' ,  $request->input('email').' was added to the project successfully']); 
+                        
+                    }
+                    
+         }
+
+         return redirect()->route('projects.show', ['project'=> $project->id])
+         ->with('errors' ,  'Error adding user to project');
+        
+
+         
+     }
 }

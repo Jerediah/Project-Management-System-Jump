@@ -14,4 +14,12 @@ class Comment extends Model
     	'commentable_type',
     	'user_id'
     ]; 
+
+    public function commentable(){
+    	return $this->morphTo();
+    }
+
+    public function user(){
+    	return $this->hasOne('App\User', 'id', 'user_id');
+    }
 }

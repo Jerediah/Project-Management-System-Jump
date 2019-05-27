@@ -11,7 +11,7 @@
                 	<form method="post" action="/teams">
                 		{{csrf_field()}}
                 		Team name: <input type="text" name="name"><br><br>
-                		<button>Submit</button>
+                		<input type="submit" class="btn btn-default" value="submit">
                 	</form>
                 </div>
             </div>

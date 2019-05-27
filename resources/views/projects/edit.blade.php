@@ -15,14 +15,14 @@
                         Project description: <input type="text" name="description" value="{{$project->description}}"><br><br>
                         Select Team: <select id="team_id" name="team_id" class="form-control">
                             <option>-----Select Team-----</option>
-                            @foreach($team as $t)
-                                <option value="{{$t->id}}">{{$t->name}}</option>
+                            @foreach($teams as $team)
+                                <option value="{{$team->id}}">{{$team->name}}</option>
                             @endforeach
                         </select>
                         Priority: <input type="text" name="priority" value="{{$project->priority}}"><br><br>
                         Start date: <input type="date" name="start_date" value="{{$project->start_date}}"><br><br>
                         Finish date: <input type="date" name="finish_date" value="{{$project->finish_date}}"><br><br>
-                		<input type="submit" name="submit">
+                		<input type="submit" class="btn btn-default" value="submit">
                 	</form>
                 </div>
             </div>

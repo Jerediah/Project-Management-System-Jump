@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Task;
+use App\Project;
 use Illuminate\Http\Request;
 
 class TasksController extends Controller
@@ -15,6 +16,9 @@ class TasksController extends Controller
     public function index()
     {
         //
+        $projects = Project::all();
+
+        return view('tasks.index', compact('projects'));
     }
 
     /**
@@ -25,6 +29,9 @@ class TasksController extends Controller
     public function create()
     {
         //
+        $project = Project::all();
+
+        return view('tasks.create');
     }
 
     /**

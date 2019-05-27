@@ -17,6 +17,7 @@ class CreateTeamsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->unsignedBigInteger('task_id')->nullable()->index();
+            $table->unsignedBigInteger('user_id')->nullable()->index();
             $table->timestamps();
         });
     }

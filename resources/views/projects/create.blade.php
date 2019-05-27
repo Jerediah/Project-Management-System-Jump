@@ -21,7 +21,7 @@
                 		Priority: <input type="text" name="priority"><br><br>
                 		Start date: <input type="date" name="start_date"><br><br>
                 		Finish date: <input type="date" name="finish_date"><br><br>
-                		<button>Submit</button>
+                		<input type="submit" class="btn btn-default" value="submit">
                 	</form>
                 </div>
             </div>
