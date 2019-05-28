@@ -122,39 +122,11 @@ class TeamsController extends Controller
 
     public function adduser(Request $request){
 
-         
-         $team = Team::all();
-        
+        $team = Team::findOrFail($request->id);
 
-         if(Auth::user()->id == $team->user_id){
+        $team->user()->save(new User(['email', $request->input('email')]));
 
-         $user = User::where('email', $request->input('email'))->first(); //single record
-
-         //check if user is already added to the project
-         $teamUser = TeamUser::where('user_id',$user->id)
-                                    ->where('team_id',$team->id)
-                                    ->first();
-                                    
-            if($teamUser){
-                //if user already exists, exit 
-        
-                return response()->json(['success' ,  $request->input('email').' is already a member of this team']); 
-               
-            }
-
-
-            if($user && $team){
-
-                $team->users()->attach($user->id); 
-
-                     return response()->json(['success' ,  $request->input('email').' was added to the team successfully']); 
-                        
-                    }
-                    
-         }
-
-         return redirect()->route('teams.show', ['team'=> $project->id])
-         ->with('errors' ,  'Error adding user to team');
-     }
+        return redirect('/teams');
+    }
 
 }

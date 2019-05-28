@@ -13,7 +13,7 @@
           </div>
           <div class="row">
             @foreach($team->projects as $project)
-            <div class="col-xs-6 col-lg-4" style="background: white;">
+            <div class="col-xs-6 col-lg-4">
               <h2>{{$project->title}}</h2>
               <p> {{$project->description}} </p>
               <p><a class="btn btn-primary" href="/projects/{{$project->id}}" role="button">View Project »</a></p>
@@ -31,47 +31,27 @@
             <h4>Actions</h4>
             <ol class="list-unstyled">
               <li><a href="/teams/{{$team->id}}/edit">Edit</a></li>
-              <li><a href="/projects/create/{{$team->id}}">Add Project</a></li>
-              <li><a href="/teams/create">Create new Team</a></li>
-              <li><a href="#">Add new member</a></li>
-
-              <br/>
-
               <li>
               </form>
               <form method="post" action="/teams/{{$team->id}}">
                   {{csrf_field()}}
                   <input type="hidden" name="_method" value="DELETE">
-                  <input type="submit" class="btn btn-default" value="Delete">
+                  <button>Delete</button>
                   </form></li>
 
               </li>
+              <li><a href="#">Add new member</a></li>
             </ol>
 
-<!--   <hr> -->
-       <!--    <h4>Add Members</h4>
-          <div class="row">
-            <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
-              <form id="add-user" action="{{route('projects.adduser')}}" method="post"> 
+            <hr>
+            <h4>Add member</h4>
+            <div class="input-group input-group-sm mb-3">
+              <form method="post" action="{{route('teams.adduser')}}">
+                <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
                 {{csrf_field()}}
-              <div class="input-group">
-                <input type="text" class="form-control" placeholder="Email">
-                <span class="input-group-btn">
-                  <button class="btn btn-default" type="submit">Add</button>
-                </span>
-              </div>
-            </form>
+              </form>
+              
             </div>
-          </div>
-
-            <br>
-             <h4>Team members</h4>
-            <ol class="list-unstyled">
-              @foreach($project->users as $user)
-              <li><a href="#">{{$user->email}}</a></li>
-              @endforeach
-            </ol> -->
-
           </div>
     <!--       <div class="sidebar-module">
             <h4>Members</h4>
@@ -81,7 +61,8 @@
           </div> -->
         </div>
 
-                                                                                                                                                                                                                                                                                                                                                                                                        
+      <hr>
+
 
     </div>
 @endsection
